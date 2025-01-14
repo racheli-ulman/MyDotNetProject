@@ -1,5 +1,6 @@
 ﻿using CarsVolunteer.core.Repositories;
 using CarsVolunteer.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarsVolunteer.Data.Repositories
 {
-    public class TravelRepository:ITravelRepository
+    public class TravelRepository : ITravelRepository
     {
         private readonly DataContext _dataContext;
 
@@ -19,12 +20,20 @@ namespace CarsVolunteer.Data.Repositories
         public bool AddTravel(Travel travel)
         {
             _dataContext.travels.Add(travel);
+            _dataContext.SaveChanges();
             return true;
         }
 
         public bool DeleteTravel(int id)
         {
-            _dataContext.travels.Remove(GetTravelById(id));
+            var existVolunteer = GetTravelById(id);
+            if (existVolunteer == null)
+            {
+                Console.WriteLine("there isn't this customer");
+                return false;
+            }
+            _dataContext.travels.Remove(existVolunteer);
+            _dataContext.SaveChanges();
             return true;
         }
 
@@ -40,8 +49,19 @@ namespace CarsVolunteer.Data.Repositories
 
         public bool UpdateTravel(int id, Travel travel)
         {
-            DeleteTravel(id);
-            AddTravel(travel);
+            var existTravel = GetTravelById(id);
+
+            existTravel.Id = existTravel.Id;
+            existTravel.IdOfCustomer = existTravel.IdOfCustomer;
+            existTravel.IdOfVolunteer = existTravel.IdOfVolunteer;
+            existTravel.TimeOfTraveling = existTravel.TimeOfTraveling;
+            existTravel.Source = existTravel.Source;
+            existTravel.Destination = existTravel.Destination;
+            existTravel.DetailsOfCar.Id = existTravel.DetailsOfCar.Id;
+            existTravel.DetailsOfCar.Status = existTravel.DetailsOfCar.Status;
+            existTravel.DetailsOfCar.CountPlacesInCar = existTravel.DetailsOfCar.CountPlacesInCar;
+
+            _dataContext.SaveChanges();
             return true;
         }
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarsVolunteer.Data.Repositories
 {
@@ -36,21 +37,38 @@ namespace CarsVolunteer.Data.Repositories
             //        return false;
             //}
             _dataContext.customers.Add(customer);
+            _dataContext.SaveChanges();
             return true;
         }
-
-
         public bool DeleteCustomer(int id)
         {
-            _dataContext.customers.Remove(GetCustomerById(id));
+            var customer = GetCustomerById(id);
+            if (customer == null)
+            {
+                Console.WriteLine("there isn't this customer to delete");
+                return false;
+            }
+            _dataContext.customers.Remove(customer);
+            _dataContext.SaveChanges();
             return true;
         }
 
         //עדכון לקוח
         public bool UpdateCustomer(int id, Customer customer)
         {
-            DeleteCustomer(id);
-            AddCustomer(customer);
+            var existCustomer = GetCustomerById(id);
+            if (existCustomer == null)
+            {
+                Console.WriteLine("there isn't this customer");
+                return false;
+            }
+            existCustomer.Id= customer.Id;
+            existCustomer.Name = customer.Name;
+            existCustomer.Address = customer.Address;
+            existCustomer.Email = customer.Email;
+            existCustomer.Phone = customer.Phone;
+            existCustomer.Destination = customer.Destination;
+            _dataContext.SaveChanges();
             return true;
             /*if (_dataContext.customers == null)
                 return false;

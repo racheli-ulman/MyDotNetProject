@@ -9,12 +9,13 @@
         public string Phone { get; set; }
         public int CountTravelingInMonth { get; set; }
         public Car DetailsOfCar { get; set; }
+        public List<Travel>listOftravels { get; set; }
         public Volunteer()
         {
             
         }
 
-        public Volunteer(int id, string name, string email, string address, string phone, int countTravelingInMonth, Car detailsOfCar)
+        public Volunteer(int id, string name, string email, string address, string phone, int countTravelingInMonth, Car detailsOfCar, List<Travel> listOftravels)
         {
             Id = id;
             Name = name;
@@ -23,6 +24,7 @@
             Phone = phone;
             CountTravelingInMonth = countTravelingInMonth;
             DetailsOfCar = detailsOfCar;
+            this.listOftravels = listOftravels;
         }
     }
 }
