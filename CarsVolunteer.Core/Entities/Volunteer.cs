@@ -25,7 +25,7 @@
             Phone = phone;
             CountTravelingInMonth = countTravelingInMonth;
             DetailsOfCar = detailsOfCar;
-            this.travelList = travelList;
+           this.travelList = travelList;
         }
     }
 }

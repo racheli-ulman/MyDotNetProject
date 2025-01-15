@@ -23,7 +23,7 @@
             Address = address;
             Phone = phone;
             Destination = destination;
-            this.travelList = travelList;
+            //this.travelList = travelList;
         }
     }
 }

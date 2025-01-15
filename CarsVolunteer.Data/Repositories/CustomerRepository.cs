@@ -20,7 +20,7 @@ namespace CarsVolunteer.Data.Repositories
         //שליפת רשימת לקוחות
         public IEnumerable<Customer> GetListOfCustomer()
         {
-            return _dataContext.customers.Include(u => u.travelList);
+            return _dataContext.customers;
         }
         //שליפת לקוח לפי ID
         public Customer GetCustomerById(int id)

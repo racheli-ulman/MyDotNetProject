@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarsVolunteer.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250115110133_oneToOne")]
-    partial class oneToOne
+    [Migration("20250115191351_one-to-many")]
+    partial class onetomany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,7 +84,7 @@ namespace CarsVolunteer.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Destination")
@@ -107,7 +107,7 @@ namespace CarsVolunteer.Data.Migrations
                     b.Property<DateTime>("TimeOfTraveling")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("VolunteerId")
+                    b.Property<int?>("VolunteerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -160,11 +160,9 @@ namespace CarsVolunteer.Data.Migrations
 
             modelBuilder.Entity("CarsVolunteer.Core.Entities.Travel", b =>
                 {
-                    b.HasOne("CarsVolunteer.Core.Entities.Customer", "Customer")
+                    b.HasOne("CarsVolunteer.Core.Entities.Customer", null)
                         .WithMany("travelList")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("CarsVolunteer.Core.Entities.Car", "DetailsOfCar")
                         .WithMany()
@@ -172,17 +170,11 @@ namespace CarsVolunteer.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarsVolunteer.Core.Entities.Volunteer", "Volunteer")
+                    b.HasOne("CarsVolunteer.Core.Entities.Volunteer", null)
                         .WithMany("travelList")
-                        .HasForeignKey("VolunteerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
+                        .HasForeignKey("VolunteerId");
 
                     b.Navigation("DetailsOfCar");
-
-                    b.Navigation("Volunteer");
                 });
 
             modelBuilder.Entity("CarsVolunteer.Core.Entities.Volunteer", b =>

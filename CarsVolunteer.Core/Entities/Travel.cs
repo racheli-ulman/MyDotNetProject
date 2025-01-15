@@ -10,8 +10,11 @@
         public string   Source          { get; set; }
         public string   Destination      { get; set; }
         public Car      DetailsOfCar    { get; set; }
-        public Volunteer Volunteer { get; set; }
-        public Customer Customer { get; set; }
+  //      public int VolunteerId{ get; set; }
+
+       // public Volunteer Volunteer { get; set; }
+   //     public int CustomerId { get; set; }
+     //   public Customer Customer { get; set; }
         public Travel()
         {
             
@@ -24,8 +27,8 @@
             this.Destination = destination;
             DetailsOfCar = detailsOfCar;
             Id = id;
-            this.Customer = Customer;
-            this.Volunteer =Volunteer;
+         //   this.Customer = Customer;
+           // this.Volunteer =Volunteer;
         }
     }
 }
