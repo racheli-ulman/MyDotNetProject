@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
 namespace CarsVolunteer.Data.Repositories
 {
     public class CustomerRepository:ICustomerRepository
@@ -21,7 +20,7 @@ namespace CarsVolunteer.Data.Repositories
         //שליפת רשימת לקוחות
         public IEnumerable<Customer> GetListOfCustomer()
         {
-            return _dataContext.customers.ToList();
+            return _dataContext.customers.Include(u => u.travelList);
         }
         //שליפת לקוח לפי ID
         public Customer GetCustomerById(int id)
