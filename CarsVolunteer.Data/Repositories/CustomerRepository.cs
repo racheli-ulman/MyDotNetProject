@@ -36,16 +36,23 @@ namespace CarsVolunteer.Data.Repositories
             //    if (GetCustomerById(customer.Id) == null)
             //        return false;
             //}
-            _dataContext.customers.Add(customer);
-            _dataContext.SaveChanges();
-            return true;
+            try
+            {
+                _dataContext.customers.Add(customer);
+                _dataContext.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
         public bool DeleteCustomer(int id)
         {
             var customer = GetCustomerById(id);
             if (customer == null)
             {
-                Console.WriteLine("there isn't this customer to delete");
+                Console.WriteLine("there isn't this customer so we can't delete");
                 return false;
             }
             _dataContext.customers.Remove(customer);

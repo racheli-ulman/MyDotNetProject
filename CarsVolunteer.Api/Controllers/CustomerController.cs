@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CarsVolunteer.core.servies;
 using CarsVolunteer.Core.Entities;
+using CarsVolunteer.Api.Models;
+using CarsVolunteer.Core.DTOs;
+using CarsVolunteer.Core;
+using AutoMapper;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CarsVolunteer.Api.Controllers
@@ -10,29 +14,38 @@ namespace CarsVolunteer.Api.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerServies _customerService;
-        public CustomerController(ICustomerServies customerService)
+        //private readonly Mapping _mapping;
+        private readonly IMapper _mapper;
+        public CustomerController(ICustomerServies customerService,IMapper mapper)
         {
             _customerService = customerService;
+            _mapper = mapper;
         }
         // GET: api/<CustomerController>
         [HttpGet]
-        public IEnumerable<Customer> Get()
+        public ActionResult<Customer> Get()
         {
-            return _customerService.GetListOfCustomer();
+            
+            var list = _customerService.GetListOfCustomer();
+            var listDto=_mapper.Map<IEnumerable<CustomerDto>>(list);
+            return Ok(listDto);
         }
 
         // GET api/<CustomerController>/5
         [HttpGet("{id}")]
         public ActionResult<Customer> Get(int id)
         {
-            return _customerService.GetCustomerById(id);
+            var customer = _customerService.GetCustomerById(id);
+            var customerDto= _mapper.Map<CustomerDto>(customer);
+            return Ok(customerDto);
         }
 
         // POST api/<CustomerController>
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] Customer c)
+        public ActionResult<bool> Post([FromBody] CustomerPostModel c)
         {
-            return _customerService.AddCustomer(c);
+            var customerToAdd = new Customer { Address = c.Address, Destination = c.Destination, Email = c.Email, Id = c.Id, Name = c.Name, Phone = c.Phone };
+            return _customerService.AddCustomer(customerToAdd);
         }
 
         // PUT api/<CustomerController>/5

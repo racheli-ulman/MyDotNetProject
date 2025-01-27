@@ -1,4 +1,7 @@
-﻿using CarsVolunteer.core.servies;
+﻿using AutoMapper;
+using CarsVolunteer.Api.Models;
+using CarsVolunteer.core.servies;
+using CarsVolunteer.Core.DTOs;
 using CarsVolunteer.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,32 +11,39 @@ namespace Project.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TravelControllerr : ControllerBase
+    public class TravelController : ControllerBase
     {
         readonly private ItravelServies _travelServies;
-        public TravelControllerr(ItravelServies travelServies)
+        readonly private IMapper _mapper;
+        public TravelController(ItravelServies travelServies,IMapper mapper)
         {
             _travelServies = travelServies;
+            _mapper = mapper;   
         }
         // GET: api/<TravelControllerr>
         [HttpGet]
-        public IEnumerable<Travel> Get()
+        public ActionResult<Travel> Get()
         {
-            return _travelServies.GetListOfTravel();
+            var list = _travelServies.GetListOfTravel();
+            var listDto = _mapper.Map<IEnumerable<TravelDto>>(list);
+            return Ok(listDto);
         }
 
         // GET api/<TravelControllerr>/5
         [HttpGet("{id}")]
-        public Travel Get(int id)
+        public ActionResult<Travel> Get(int id)
         {
-            return _travelServies.GetTravelById(id);
+            var travel = _travelServies.GetTravelById(id);
+            var travelDto = _mapper.Map<TravelDto>(travel);
+            return Ok(travelDto);
         }
 
         // POST api/<TravelControllerr>
         [HttpPost]
-        public ActionResult<bool> Post([FromBody] Travel travel)
+        public ActionResult<bool> Post([FromBody] TravelPostModel travel)
         {
-            return _travelServies.AddTravel(travel);
+            var travelToAdd=new Travel { Destination = travel.Destination,DetailsOfCar=travel.DetailsOfCar,Id=travel.Id,IdOfCustomer=travel.IdOfCustomer,IdOfVolunteer=travel.IdOfVolunteer,Source=travel.Source,TimeOfTraveling=travel.TimeOfTraveling };
+            return _travelServies.AddTravel(travelToAdd);
         }
 
         // PUT api/<TravelControllerr>/5
