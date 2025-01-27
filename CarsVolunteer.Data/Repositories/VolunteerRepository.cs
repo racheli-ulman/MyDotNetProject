@@ -18,7 +18,7 @@ namespace CarsVolunteer.Data.Repositories
         }
         public List<Volunteer> GetListOfVolunteer()
         {
-            return _dataContext.volunteers.ToList();
+            return _dataContext.volunteers.Include(u=>u.travelList).ToList();
         }
 
         public Volunteer GetVolunteerById(int id)

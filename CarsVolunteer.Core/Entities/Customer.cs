@@ -8,12 +8,14 @@
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Destination { get; set; }
+        public List<Travel> travelList { get; set; }
+
         public Customer()
         {
             
         }
 
-        public Customer(int id, string name, string email, string address, string phone, string destination)
+        public Customer(int id, string name, string email, string address, string phone, string destination, List<Travel> travelList)
         {
             Id = id;
             Name = name;
@@ -21,6 +23,7 @@
             Address = address;
             Phone = phone;
             Destination = destination;
+            //this.travelList = travelList;
         }
     }
 }

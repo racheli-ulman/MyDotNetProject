@@ -1,35 +1,48 @@
+<<<<<<< HEAD:CarsVolunteer.Api/Controllers/TravelControllerr.cs
 ﻿using AutoMapper;
 using CarsVolunteer.Api.Models;
 using CarsVolunteer.core.servies;
 using CarsVolunteer.Core.DTOs;
 using CarsVolunteer.Core.Entities;
+=======
+﻿using CarsVolunteer.Core.Entities;
+using CarsVolunteer.core.servies;
+>>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e:CarsVolunteer.Api/Controllers/TravelController.cs
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Project.Controllers
+namespace CarsVolunteer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+<<<<<<< HEAD:CarsVolunteer.Api/Controllers/TravelControllerr.cs
     public class TravelController : ControllerBase
     {
         readonly private ItravelServies _travelServies;
         readonly private IMapper _mapper;
         public TravelController(ItravelServies travelServies,IMapper mapper)
+=======
+    public class TravelController: ControllerBase
+    {
+        readonly private ItravelServies _travelServies;
+        public TravelController(ItravelServies travelServies)
+>>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e:CarsVolunteer.Api/Controllers/TravelController.cs
         {
             _travelServies = travelServies;
             _mapper = mapper;   
         }
-        // GET: api/<TravelControllerr>
+  
         [HttpGet]
         public ActionResult<Travel> Get()
         {
+<<<<<<< HEAD:CarsVolunteer.Api/Controllers/TravelControllerr.cs
             var list = _travelServies.GetListOfTravel();
             var listDto = _mapper.Map<IEnumerable<TravelDto>>(list);
             return Ok(listDto);
+=======
+            return _travelServies.GetListOfTravel().ToList();
+>>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e:CarsVolunteer.Api/Controllers/TravelController.cs
         }
 
-        // GET api/<TravelControllerr>/5
+       
         [HttpGet("{id}")]
         public ActionResult<Travel> Get(int id)
         {
@@ -38,7 +51,7 @@ namespace Project.Controllers
             return Ok(travelDto);
         }
 
-        // POST api/<TravelControllerr>
+    
         [HttpPost]
         public ActionResult<bool> Post([FromBody] TravelPostModel travel)
         {
@@ -46,14 +59,14 @@ namespace Project.Controllers
             return _travelServies.AddTravel(travelToAdd);
         }
 
-        // PUT api/<TravelControllerr>/5
+   
         [HttpPut("{id}")]
         public ActionResult<bool> Put(int id, [FromBody] Travel travel)
         {
             return _travelServies.UpdateTravel(id, travel);
         }
 
-        // DELETE api/<TravelControllerr>/5
+    
         [HttpDelete("{id}")]
         public ActionResult<bool> Delete(int id)
         {

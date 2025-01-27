@@ -11,7 +11,7 @@ namespace CarsVolunteer.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=sample_db");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=rrr_db");
         }
         /*public DataContext()
         {

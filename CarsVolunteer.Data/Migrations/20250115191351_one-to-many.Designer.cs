@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarsVolunteer.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241126185345_ChangeNameToFirstName")]
-    partial class ChangeNameToFirstName
+    [Migration("20250115191351_one-to-many")]
+    partial class onetomany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,9 @@ namespace CarsVolunteer.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Destination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -104,9 +107,16 @@ namespace CarsVolunteer.Data.Migrations
                     b.Property<DateTime>("TimeOfTraveling")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("VolunteerId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex("DetailsOfCarId");
+
+                    b.HasIndex("VolunteerId");
 
                     b.ToTable("travels");
                 });
@@ -150,11 +160,19 @@ namespace CarsVolunteer.Data.Migrations
 
             modelBuilder.Entity("CarsVolunteer.Core.Entities.Travel", b =>
                 {
+                    b.HasOne("CarsVolunteer.Core.Entities.Customer", null)
+                        .WithMany("travelList")
+                        .HasForeignKey("CustomerId");
+
                     b.HasOne("CarsVolunteer.Core.Entities.Car", "DetailsOfCar")
                         .WithMany()
                         .HasForeignKey("DetailsOfCarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CarsVolunteer.Core.Entities.Volunteer", null)
+                        .WithMany("travelList")
+                        .HasForeignKey("VolunteerId");
 
                     b.Navigation("DetailsOfCar");
                 });
@@ -168,6 +186,16 @@ namespace CarsVolunteer.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("DetailsOfCar");
+                });
+
+            modelBuilder.Entity("CarsVolunteer.Core.Entities.Customer", b =>
+                {
+                    b.Navigation("travelList");
+                });
+
+            modelBuilder.Entity("CarsVolunteer.Core.Entities.Volunteer", b =>
+                {
+                    b.Navigation("travelList");
                 });
 #pragma warning restore 612, 618
         }

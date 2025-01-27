@@ -21,7 +21,7 @@ namespace Project.Servies
 
         public List<Travel> GetListOfTravel()
         {
-          return _travelRepository.GetListOfTravel();
+          return _travelRepository.GetListOfTravel().ToList();
              
         }
 
