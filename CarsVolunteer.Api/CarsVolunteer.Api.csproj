@@ -12,7 +12,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
->>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.9.0" />
