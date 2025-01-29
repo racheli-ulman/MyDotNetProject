@@ -5,12 +5,9 @@ using CarsVolunteer.Data;
 using CarsVolunteer.Data.Repositories;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Project.Servies;
-<<<<<<< HEAD
 using AutoMapper;
 
-=======
 using System.Text.Json.Serialization;
->>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e
 
 var builder = WebApplication.CreateBuilder(args);
 

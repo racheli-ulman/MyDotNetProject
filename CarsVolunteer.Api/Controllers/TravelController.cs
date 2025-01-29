@@ -1,30 +1,20 @@
-<<<<<<< HEAD:CarsVolunteer.Api/Controllers/TravelControllerr.cs
 ﻿using AutoMapper;
 using CarsVolunteer.Api.Models;
 using CarsVolunteer.core.servies;
 using CarsVolunteer.Core.DTOs;
 using CarsVolunteer.Core.Entities;
-=======
 ﻿using CarsVolunteer.Core.Entities;
 using CarsVolunteer.core.servies;
->>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e:CarsVolunteer.Api/Controllers/TravelController.cs
 using Microsoft.AspNetCore.Mvc;
 namespace CarsVolunteer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-<<<<<<< HEAD:CarsVolunteer.Api/Controllers/TravelControllerr.cs
     public class TravelController : ControllerBase
     {
         readonly private ItravelServies _travelServies;
         readonly private IMapper _mapper;
         public TravelController(ItravelServies travelServies,IMapper mapper)
-=======
-    public class TravelController: ControllerBase
-    {
-        readonly private ItravelServies _travelServies;
-        public TravelController(ItravelServies travelServies)
->>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e:CarsVolunteer.Api/Controllers/TravelController.cs
         {
             _travelServies = travelServies;
             _mapper = mapper;   
@@ -33,13 +23,9 @@ namespace CarsVolunteer.Api.Controllers
         [HttpGet]
         public ActionResult<Travel> Get()
         {
-<<<<<<< HEAD:CarsVolunteer.Api/Controllers/TravelControllerr.cs
             var list = _travelServies.GetListOfTravel();
             var listDto = _mapper.Map<IEnumerable<TravelDto>>(list);
             return Ok(listDto);
-=======
-            return _travelServies.GetListOfTravel().ToList();
->>>>>>> 67d82159c6878cc396ff78664595cf6eae57196e:CarsVolunteer.Api/Controllers/TravelController.cs
         }
 
        
